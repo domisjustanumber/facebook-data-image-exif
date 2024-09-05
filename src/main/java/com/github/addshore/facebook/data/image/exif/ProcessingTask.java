@@ -121,7 +121,7 @@ public class ProcessingTask extends Task {
                 continue;
             }
 
-            appendDebugMessage("Getting album photos");
+            appendDebugMessage("Getting album photos, JSON = " + albumJson);
             JSONArray albumPhotos = albumJson.getJSONArray("photos");
 
             appendMessage("Album: " + albumJson.getString("name") + ", " + albumPhotos.length() + " photos");
@@ -181,7 +181,7 @@ public class ProcessingTask extends Task {
     }
 
     private Boolean processFile( JSONObject photoData ) throws JSONException, IOException {
-        File imageFile = new File(dir.getParentFile().toPath().toString() + File.separator + photoData.getString("uri"));
+        File imageFile = new File(dir.getParentFile().toPath().toString() + File.separator + photoData.getString("uri").replace("your_facebook_activity/", ""));
         appendDebugMessage("Image file path: " + imageFile.getPath());
 
         if( !imageFile.exists() ) {
@@ -230,11 +230,11 @@ public class ProcessingTask extends Task {
             appendDebugMessage(StandardTag.DATE_TIME_ORIGINAL + " got from modified_timestamp of media file:" + takenTimestamp);
         } else if(photoMetaData.has("creation_timestamp")) {
             // Fallback to the creation timestamp
-            takenTimestamp = photoMetaData.getString("creation_timestamp");
+            takenTimestamp = photoMetaData.getInt("creation_timestamp") + "";
             appendDebugMessage(StandardTag.DATE_TIME_ORIGINAL + " got from creation_timestamp of media file:" + takenTimestamp);
         } else if(photoData.has("creation_timestamp")) {
             // Fallback to the facebook upload creation timestamp, rather than one from the media file itself..
-            takenTimestamp = photoData.getString("creation_timestamp");
+            takenTimestamp = photoData.getInt("creation_timestamp") + "";
             appendDebugMessage(StandardTag.DATE_TIME_ORIGINAL + " got from creation_timestamp of facebook upload:" + takenTimestamp);
         } else{
             appendDebugMessage(StandardTag.DATE_TIME_ORIGINAL + " could not find a source");

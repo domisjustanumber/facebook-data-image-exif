@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
 
-    private static final String POSTS_DIRECTORY = "posts";
+    private static final String POSTS_DIRECTORY = "your_facebook_activity/posts";
     private String version = "0.12";
     private Stage stage;
     private MainView view;
