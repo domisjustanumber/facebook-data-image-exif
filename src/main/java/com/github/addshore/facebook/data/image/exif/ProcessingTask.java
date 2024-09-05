@@ -64,7 +64,7 @@ public class ProcessingTask extends Task<Object> {
         try {
             exifTool.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             appendDebugMessage("There was a problem closing exiftool");
             appendDebugMessage(e.getMessage());
         }

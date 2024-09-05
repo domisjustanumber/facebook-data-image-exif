@@ -297,7 +297,7 @@ public class Main extends Application {
                     th.start();
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    System.out.println(e.getMessage());
                 }
             }
         };
