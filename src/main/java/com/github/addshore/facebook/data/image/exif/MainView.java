@@ -3,19 +3,15 @@ package com.github.addshore.facebook.data.image.exif;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class MainView {
 
-    // Grids
-    public final GridPane dataEntryView;
-    public final GridPane dirInputGrid;
-    public final GridPane toolInputGrid;
-    public final GridPane optionsGrid;
-    public final GridPane linksGrid;
-    public final GridPane submitGrid;
+    // Main view
+    public final VBox dataEntryView;
 
     // Inputs
     public final TextField dirInput;
@@ -25,7 +21,12 @@ public class MainView {
     public final TextField toolInput;
     public final Button toolInputBrowse;
 
-    public final CheckBox overwriteCheckbox;
+    public final ToggleGroup fileProcessingModeGroup;
+    public final RadioButton overwriteOriginalsRadio;
+    public final RadioButton copyToProcessedRadio;
+    public final CheckBox processPostsCheckbox;
+    public final CheckBox processMessagesCheckbox;
+    public final CheckBox processFilesCheckbox;
 
     public final Label versionLabel;
     public final Hyperlink hyperLinkAddshore;
@@ -39,34 +40,38 @@ public class MainView {
     public MainView() throws IOException {
         dataEntryView = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("dataEntry.fxml")));
 
-        // dirInputGrid pain
-        dirInputGrid = (GridPane) dataEntryView.getChildren().get(1);
-        dirInput = (TextField) dirInputGrid.getChildren().get(0);
-        dirInputBrowse = (Button) dirInputGrid.getChildren().get(1);
-
-        toolLabel = (Label) dataEntryView.getChildren().get(2);
-
-        // exiftoolGrid pain
-        toolInputGrid = (GridPane) dataEntryView.getChildren().get(3);
-        toolInput = (TextField) toolInputGrid.getChildren().get(0);
-        toolInputBrowse = (Button) toolInputGrid.getChildren().get(1);
-
-        // Additional Options grid
-        optionsGrid = (GridPane) dataEntryView.getChildren().get(7);
-        overwriteCheckbox = (CheckBox) optionsGrid.getChildren().get(0);
-
-        // Details grid pain
-        linksGrid = (GridPane) dataEntryView.getChildren().get(4);
-        versionLabel = (Label) linksGrid.getChildren().get(0);
-        hyperLinkAddshore = (Hyperlink) linksGrid.getChildren().get(1);
-        hyperLinkCoffee = (Hyperlink) linksGrid.getChildren().get(2);
-        hyperLinkExif = (Hyperlink) linksGrid.getChildren().get(3);
-
-        // Submission grid
-        submitGrid = (GridPane) dataEntryView.getChildren().get(6);
-        runButton = (Button) submitGrid.getChildren().get(0);
-        dryRunButton = (Button) submitGrid.getChildren().get(1);
-        debugCheckbox = (CheckBox) submitGrid.getChildren().get(2);
+        // Get the input fields directly from the VBox
+        dirInput = (TextField) dataEntryView.lookup("#dirInput");
+        dirInputBrowse = (Button) dataEntryView.lookup("#dirInputBrowse");
+        
+        toolLabel = (Label) dataEntryView.lookup("#toolLabel");
+        toolInput = (TextField) dataEntryView.lookup("#toolInput");
+        toolInputBrowse = (Button) dataEntryView.lookup("#toolInputBrowse");
+        
+        // Get the radio buttons and set up the toggle group
+        overwriteOriginalsRadio = (RadioButton) dataEntryView.lookup("#overwriteOriginalsRadio");
+        copyToProcessedRadio = (RadioButton) dataEntryView.lookup("#copyToProcessedRadio");
+        
+        // Create and set up the toggle group
+        fileProcessingModeGroup = new ToggleGroup();
+        overwriteOriginalsRadio.setToggleGroup(fileProcessingModeGroup);
+        copyToProcessedRadio.setToggleGroup(fileProcessingModeGroup);
+        
+        // Get the checkboxes
+        processPostsCheckbox = (CheckBox) dataEntryView.lookup("#processPostsCheckbox");
+        processMessagesCheckbox = (CheckBox) dataEntryView.lookup("#processMessagesCheckbox");
+        processFilesCheckbox = (CheckBox) dataEntryView.lookup("#processFilesCheckbox");
+        
+        // Get the action buttons
+        runButton = (Button) dataEntryView.lookup("#runButton");
+        dryRunButton = (Button) dataEntryView.lookup("#dryRunButton");
+        debugCheckbox = (CheckBox) dataEntryView.lookup("#debugCheckbox");
+        
+        // Get the footer elements
+        versionLabel = (Label) dataEntryView.lookup("#versionLabel");
+        hyperLinkAddshore = (Hyperlink) dataEntryView.lookup("#hyperLinkAddshore");
+        hyperLinkCoffee = (Hyperlink) dataEntryView.lookup("#hyperLinkCoffee");
+        hyperLinkExif = (Hyperlink) dataEntryView.lookup("#hyperLinkExif");
     }
 
 }

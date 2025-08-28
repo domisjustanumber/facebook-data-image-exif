@@ -1,3 +1,18 @@
+#### 0.13 (Unreleased)
+
+* Added message processing functionality - extracts creation_timestamp from photos, videos, and files in Facebook message JSON files
+* Processes messages in both inbox and e2ee_cutover directories
+* Supports photos, videos, and all files with creation_timestamp in message conversations
+* Uses the same timestamp extraction technique as album processing for consistency
+* Added message copying functionality - creates organized conversation folders under Processed/Messages/
+* Conversation folders are named using participant names (e.g., "Mike_Lane_Dom_Scott")
+* Copies all photos, videos, and files while preserving original file timestamps
+* Added message processing and copying statistics to the output summary
+* Added album copying functionality - creates a new "Processed" directory with properly named album folders
+* Copies image files while preserving their metadata (creation time, modification time, etc.)
+* Added album copy statistics to the output summary
+* Added toggle to enable/disable processing of files (in addition to photos and videos) in message conversations
+
 #### 0.12 (21 January 2021)
 
 * Update expected directory name from 'photos_and_videos' to '

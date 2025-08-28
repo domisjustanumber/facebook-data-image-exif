@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 public class Main extends Application {
 
     private static final String POSTS_DIRECTORY = "your_facebook_activity/posts";
-    private final String version = "0.12";
+    private final String version = "0.13";
     private Stage stage;
     private MainView view;
 
@@ -122,12 +122,17 @@ public class Main extends Application {
             view.toolLabel.setText(view.toolLabel.getText() + " (downloadable below)");
         }
 
+        // Set default values for checkboxes
+        view.processPostsCheckbox.setSelected(true);
+        view.processMessagesCheckbox.setSelected(true);
+        view.processFilesCheckbox.setSelected(false);
+        
         view.runButton.setOnAction(this.getButtonClickEventHandler(false));
         view.dryRunButton.setOnAction(this.getButtonClickEventHandler(true));
         view.dirInputBrowse.setOnAction(this.getBrowseButtonClickEventHandler(view.dirInput, JFileChooser.DIRECTORIES_ONLY));
         view.toolInputBrowse.setOnAction(this.getBrowseButtonClickEventHandler(view.toolInput, JFileChooser.FILES_ONLY));
 
-        return new Scene(view.dataEntryView, 500, 250);
+        return new Scene(view.dataEntryView, 700, 400);
     }
 
     private EventHandler<ActionEvent> getBrowseButtonClickEventHandler(TextField input, int selectionMode) {
@@ -254,6 +259,10 @@ public class Main extends Application {
                             "Exiftool Stayopen: " + stayOpen + "\n" +
                             "Debug: " + view.debugCheckbox.isSelected() + "\n" +
                             "Dry run: " + dryRun + "\n" +
+                            "File processing mode: " + (view.copyToProcessedRadio.isSelected() ? "Copy to Processed folder" : "Overwrite originals") + "\n" +
+                            "Process posts: " + view.processPostsCheckbox.isSelected() + "\n" +
+                            "Process messages: " + view.processMessagesCheckbox.isSelected() + "\n" +
+                            "Process files: " + view.processFilesCheckbox.isSelected() + "\n" +
                             "-------------------------------------------------";
                     System.out.println(initialStateMessage);
 
@@ -265,7 +274,11 @@ public class Main extends Application {
                             new MainOptions(
                                     view.debugCheckbox.isSelected(),
                                     dryRun,
-                                    view.overwriteCheckbox.isSelected()
+                                    view.overwriteOriginalsRadio.isSelected(),
+                                    view.copyToProcessedRadio.isSelected(),
+                                    view.processPostsCheckbox.isSelected(),
+                                    view.processMessagesCheckbox.isSelected(),
+                                    view.processFilesCheckbox.isSelected()
                             )
                     );
 

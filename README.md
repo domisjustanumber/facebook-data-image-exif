@@ -10,7 +10,7 @@ Per https://github.com/addshore/facebook-data-image-exif/issues/6#issuecomment-3
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/addshore/facebook-data-image-exif/Java%20CI%20with%20Maven)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
-A simple tool, written in Java, to add EXIF data back to images downloaded in a Facebook data export.
+A simple tool, written in Java, to add EXIF data back to images downloaded in a Facebook data export. The tool also creates a new "Processed" directory with properly named album folders and copies image files while preserving their metadata.
 
 Instructions can be found [here](https://addshore.com/2020/04/add-exif-data-back-to-facebook-images-0-10/)
 
